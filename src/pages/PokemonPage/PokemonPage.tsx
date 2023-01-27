@@ -1,6 +1,6 @@
 import React from "react";
 
-const PokemonPage = () => {
+const PokemonPage: React.FC = () => {
   return <div>PokemonPage</div>;
 };
 
