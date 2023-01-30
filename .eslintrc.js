@@ -9,7 +9,7 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:tailwindcss/recommended',
   ],
-  plugins: ['react', '@typescript-eslint', 'jest', 'import'],
+  plugins: ['react', '@typescript-eslint', 'jest', 'import', 'html'],
   env: {
     browser: true,
     es6: true,
