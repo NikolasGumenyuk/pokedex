@@ -1,8 +1,10 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage/HomePage";
-import LoginPage from "./pages/LoginPage/LoginPage";
-import PokemonPage from "./pages/PokemonPage/PokemonPage";
+import React from 'react';
+
+import { Route, Routes } from 'react-router-dom';
+
+import HomePage from './pages/HomePage/HomePage';
+import LoginPage from './pages/LoginPage/LoginPage';
+import PokemonPage from './pages/PokemonPage/PokemonPage';
 
 export default function AppRouter() {
   return (
