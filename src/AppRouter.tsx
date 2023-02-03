@@ -2,16 +2,22 @@ import React from 'react';
 
 import { Route, Routes } from 'react-router-dom';
 
-import HomePage from './pages/HomePage/HomePage';
-import LoginPage from './pages/LoginPage/LoginPage';
-import PokemonPage from './pages/PokemonPage/PokemonPage';
+import PrivateRoutes from 'utils/PrivateRoutes';
 
-export default function AppRouter() {
+import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
+import Pokemon from './pages/Pokemon/Pokemon';
+
+function AppRouter() {
   return (
     <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/home" element={<HomePage />} />
-      <Route path="/pokemon" element={<PokemonPage />} />
+      <Route element={<PrivateRoutes />}>
+        <Route path="/home" element={<Home />} />
+        <Route path="/pokemon" element={<Pokemon />} />
+      </Route>
+      <Route path="/login" element={<Login />} />
     </Routes>
   );
 }
+
+export default AppRouter;
