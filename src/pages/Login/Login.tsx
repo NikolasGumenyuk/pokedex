@@ -17,7 +17,7 @@ const Login = () => {
     try {
       const res = await verifyUser(data);
       dispatch(setUser(res));
-      navigate('/home');
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
