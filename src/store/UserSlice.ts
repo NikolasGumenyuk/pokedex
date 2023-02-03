@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-interface UserState {
+export interface UserState {
   firstName: string;
   lastName: string;
   isAuth: boolean;
@@ -12,7 +12,7 @@ const initialState: UserState = {
 };
 
 const userSlice = createSlice({
-  name: 'users',
+  name: 'user',
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<UserState>) => {
