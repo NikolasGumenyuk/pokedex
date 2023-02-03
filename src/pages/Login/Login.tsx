@@ -3,29 +3,17 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
+import { LoginProps } from 'models/LoginProps';
+import { verifyUser } from 'service/verifyUser';
 import { useAppDispatch } from 'store/hooks';
-import { setUser, UserState } from 'store/UserSlice';
-
-interface Fields {
-  login: string;
-  password: string;
-}
+import { setUser } from 'store/UserSlice';
 
 const Login = () => {
-  const { register, handleSubmit } = useForm<Fields>();
+  const { register, handleSubmit } = useForm<LoginProps>();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const verifyUser = (data: Fields): Promise<UserState> => {
-    return new Promise((resolve, reject) => {
-      if (data.login === 'admin' && data.password === '12345') {
-        resolve({ firstName: 'Mykola', lastName: 'Gumeniuk', isAuth: true });
-      }
-      reject('kto ty voin?');
-    });
-  };
-
-  const onSubmit = async (data: Fields) => {
+  const onSubmit = async (data: LoginProps) => {
     try {
       const res = await verifyUser(data);
       dispatch(setUser(res));
@@ -39,7 +27,6 @@ const Login = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <input defaultValue="login" {...register('login')} />
       <input defaultValue="password" {...register('password', { required: true })} />
-      {/* {errors.exampleRequired && <span>This field is required</span>} */}
       <input type="submit" />
     </form>
   );
