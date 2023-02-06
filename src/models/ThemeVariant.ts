@@ -1,4 +1,4 @@
 export enum ThemeVariant {
-  white,
-  black,
+  light,
+  dark,
 }

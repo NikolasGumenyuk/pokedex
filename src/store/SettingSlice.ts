@@ -11,11 +11,11 @@ export interface SettingState {
 const initialState: SettingState = {
   error: '',
   isLoading: false,
-  theme: ThemeVariant.white,
+  theme: ThemeVariant.dark,
 };
 
 const settingSlice = createSlice({
-  name: 'user',
+  name: 'setting',
   initialState,
   reducers: {
     setError: (state: SettingState, action: PayloadAction<string>) => {

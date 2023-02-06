@@ -5,7 +5,7 @@ export interface UserState {
   isAuth: boolean;
 }
 
-const initialState: UserState = {
+export const initialState: UserState = {
   firstName: '',
   lastName: '',
   isAuth: false,
@@ -16,9 +16,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<UserState>) => {
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
-      state.isAuth = action.payload.isAuth;
+      state = action.payload;
     },
   },
 });

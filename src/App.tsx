@@ -20,7 +20,7 @@ const App: React.FC = () => {
 
   return (
     <div>
-      {isLoading ? <Loading /> : ''}
+      {isLoading && <Loading />}
       <AppRouter />
       <ToastContainer />
     </div>
