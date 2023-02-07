@@ -3,14 +3,14 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 import { LoginProps } from 'models/LoginProps';
-import { verifyUser } from 'service/verifyUser';
+import { verifyUser } from 'services/verifyUser';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { setError, setLoading } from 'store/SettingSlice';
 import { setUser } from 'store/UserSlice';
 
 const Login = () => {
   const { register, handleSubmit } = useForm<LoginProps>();
-  const isLoading = useAppSelector((state) => state.setting.isLoading);
+  const isLoading = useAppSelector((state) => state.persistedReducer.setting.isLoading);
   const dispatch = useAppDispatch();
 
   const onSubmit = async (data: LoginProps) => {
