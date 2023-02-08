@@ -11,8 +11,8 @@ import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App: React.FC = () => {
-  const isLoading = useAppSelector((state) => state.persistedReducer.setting.isLoading);
-  const errorMessage = useAppSelector((state) => state.persistedReducer.setting.error);
+  const isLoading = useAppSelector((state) => state.setting.isLoading);
+  const errorMessage = useAppSelector((state) => state.setting.error);
   const notify = (massage: string) => toast.error(`${massage}`);
   const dispatch = useAppDispatch();
 

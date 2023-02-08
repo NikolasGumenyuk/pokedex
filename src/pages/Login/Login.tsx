@@ -10,7 +10,7 @@ import { setUser } from 'store/UserSlice';
 
 const Login = () => {
   const { register, handleSubmit } = useForm<LoginProps>();
-  const isLoading = useAppSelector((state) => state.persistedReducer.setting.isLoading);
+  const isLoading = useAppSelector((state) => state.setting.isLoading);
   const dispatch = useAppDispatch();
 
   const onSubmit = async (data: LoginProps) => {

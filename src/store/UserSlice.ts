@@ -16,7 +16,9 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<UserState>) => {
-      state = action.payload;
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
+      state.isAuth = action.payload.isAuth;
     },
   },
 });
