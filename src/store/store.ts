@@ -3,7 +3,8 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import settingSlice from './SettingSlice';
-import userReducer from './UserSlice';
+import userSlice from './UserSlice';
+import { pokemonApi } from '../services/pokemon/pokemon';
 
 const persistConfig = {
   key: 'root',
@@ -11,14 +12,19 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  user: userReducer,
+  user: userSlice,
   setting: settingSlice,
+  [pokemonApi.reducerPath]: pokemonApi.reducer,
 });
+
+const middleware = [pokemonApi.middleware];
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }).concat(middleware),
 });
 
 export const persistor = persistStore(store);
