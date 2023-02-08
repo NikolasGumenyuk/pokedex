@@ -13,11 +13,13 @@ import { persistor, store } from './store/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <BrowserRouter>
-    <Provider store={store}>
-      <PersistGate loading={<Loading />} persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
-  </BrowserRouter>
+  <React.StrictMode>
+    <BrowserRouter>
+      <Provider store={store}>
+        <PersistGate loading={<Loading />} persistor={persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
+    </BrowserRouter>
+  </React.StrictMode>
 );
