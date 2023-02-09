@@ -14,7 +14,7 @@ function AppRouter() {
     <Routes>
       <Route element={<PrivateRoutes />}>
         <Route path={PathName.main} element={<MainLayout />}>
-          <Route path={PathName.home} element={<Home />} index />
+          <Route path={PathName.home} element={<Home />} />
           <Route path={PathName.pokemon} element={<Pokemon />} />
         </Route>
       </Route>
