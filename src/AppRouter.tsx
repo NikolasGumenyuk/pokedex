@@ -1,7 +1,6 @@
-import React from 'react';
-
 import { Route, Routes } from 'react-router-dom';
 
+import MainLayout from 'layouts/MainLayout/MainLayout';
 import PrivateRoutes from 'utils/PrivateRoutes';
 import PublicRoutes from 'utils/PublicRoutes';
 
@@ -14,8 +13,10 @@ function AppRouter() {
   return (
     <Routes>
       <Route element={<PrivateRoutes />}>
-        <Route path={PathName.home} element={<Home />} />
-        <Route path={PathName.pokemon} element={<Pokemon />} />
+        <Route path={PathName.main} element={<MainLayout />}>
+          <Route path={PathName.home} element={<Home />} index />
+          <Route path={PathName.pokemon} element={<Pokemon />} />
+        </Route>
       </Route>
       <Route element={<PublicRoutes />}>
         <Route path={PathName.login} element={<Login />} />

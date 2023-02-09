@@ -1,8 +1,10 @@
 import React from 'react';
 
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import { LoginProps } from 'models/LoginProps';
+import { PathName } from 'models/PathName';
 import { verifyUser } from 'services/users';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { setError, setLoading } from 'store/SettingSlice';
@@ -12,6 +14,7 @@ const Login = () => {
   const { register, handleSubmit } = useForm<LoginProps>();
   const isLoading = useAppSelector((state) => state.setting.isLoading);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = async (data: LoginProps) => {
     dispatch(setLoading(true));
@@ -19,6 +22,7 @@ const Login = () => {
       const res = await verifyUser(data);
 
       dispatch(setUser(res));
+      navigate(PathName.home);
     } catch (error) {
       dispatch(setError(error as string));
     } finally {

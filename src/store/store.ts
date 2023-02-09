@@ -2,18 +2,19 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import settingSlice from './SettingSlice';
-import userSlice from './UserSlice';
+import settingReducer from './SettingSlice';
+import userReducer from './UserSlice';
 import { pokemonApi } from '../services/pokemon/pokemon';
 
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['setting'],
 };
 
 const rootReducer = combineReducers({
-  user: userSlice,
-  setting: settingSlice,
+  user: userReducer,
+  setting: settingReducer,
   [pokemonApi.reducerPath]: pokemonApi.reducer,
 });
 
