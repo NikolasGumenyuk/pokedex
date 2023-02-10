@@ -1,6 +1,6 @@
 export enum PathName {
-  main = '/',
-  home = 'home',
+  home = '/',
   pokemon = 'pokemon',
   login = 'login',
+  notFoundRout = '*',
 }
