@@ -14,12 +14,10 @@ const Header = () => {
   };
 
   return (
-    <nav
-      className={`sticky top-0 flex w-full items-center justify-between bg-white px-5 shadow-md`}
-    >
-      <div className="flex items-center p-2">
-        <img className="h-9 px-5" src={logo} alt="logo" />
-        <p>Pokedex</p>
+    <nav className="sticky top-0 flex w-full items-center justify-between bg-white px-5 shadow-md">
+      <div className="flex items-center py-2">
+        <img className="h-10 px-4" src={logo} alt="logo" />
+        <p className="text-2xl">Pokedex</p>
       </div>
       <div className="flex items-center">
         <div style={{ backgroundColor: `#${randomColor}` }} className="flex h-9 w-9 rounded-full">
