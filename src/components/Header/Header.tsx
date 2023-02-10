@@ -7,19 +7,22 @@ const Header = () => {
   const dispatch = useAppDispatch();
   const firstUserName = useAppSelector((state) => state.user.firstName);
   const lastUserName = useAppSelector((state) => state.user.lastName);
+  const randomColor = Math.floor(Math.random() * 16777215).toString(16);
 
   const handleLogOut = () => {
     dispatch(setUser(initialState));
   };
 
   return (
-    <nav className="sticky top-0 flex w-full items-center justify-between bg-white px-5 shadow-md">
+    <nav
+      className={`sticky top-0 flex w-full items-center justify-between bg-white px-5 shadow-md`}
+    >
       <div className="flex items-center p-2">
         <img className="h-9 px-5" src={logo} alt="logo" />
         <p>Pokedex</p>
       </div>
       <div className="flex items-center">
-        <div className="flex h-9 w-9 rounded-full bg-slate-500">
+        <div style={{ backgroundColor: `#${randomColor}` }} className="flex h-9 w-9 rounded-full">
           <div className="m-auto">
             <span>{firstUserName[0]}</span>
             <span>{lastUserName[0]}</span>
