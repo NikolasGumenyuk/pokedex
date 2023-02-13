@@ -1,14 +1,17 @@
-import { useNavigate } from 'react-router-dom';
-
-import { PathName } from 'models/PathName';
+import { useGetAllPokemonQuery } from 'services/pokemon/pokemon';
+import { useAppSelector } from 'store/hooks';
 
 const Home: React.FC = () => {
-  const navigate = useNavigate();
+  const { data } = useGetAllPokemonQuery();
+  const pokemons = useAppSelector((state) => state.pokemons);
+
+  console.log(pokemons);
+
+  console.log(data);
 
   return (
     <div>
       <div>HomePage</div>
-      <button onClick={() => navigate(PathName.login)}>go to login</button>
     </div>
   );
 };

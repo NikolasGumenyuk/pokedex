@@ -1,5 +1,10 @@
 export interface Pokemons {
-  results: string[];
+  results: PokeDetails[];
+}
+
+export interface PokeDetails {
+  name: string;
+  url: string;
 }
 
 export interface Pokemon {
