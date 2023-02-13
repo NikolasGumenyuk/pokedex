@@ -8,6 +8,6 @@ export const verifyUser = (data: LoginProps): Promise<UserState> => {
         resolve({ firstName: 'Mykola', lastName: 'Gumeniuk', isAuth: true });
       }
       reject('kto ty voin?');
-    }, 5000);
+    }, 2000);
   });
 };

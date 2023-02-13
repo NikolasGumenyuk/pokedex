@@ -18,7 +18,9 @@ const App: React.FC = () => {
 
   useEffect(() => {
     notify(errorMessage);
-    dispatch(setError(''));
+    setTimeout(() => {
+      dispatch(setError(''));
+    }, 4000);
   }, [errorMessage]);
 
   return (
