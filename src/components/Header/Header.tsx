@@ -5,8 +5,7 @@ import logo from '../../assets/logo.png';
 
 const Header = () => {
   const dispatch = useAppDispatch();
-  const firstUserName = useAppSelector((state) => state.user.firstName);
-  const lastUserName = useAppSelector((state) => state.user.lastName);
+  const { firstName, lastName } = useAppSelector((state) => state.user);
   const randomColor = Math.floor(Math.random() * 16777215).toString(16);
 
   const handleLogOut = () => {
@@ -22,8 +21,8 @@ const Header = () => {
       <div className="flex items-center">
         <div style={{ backgroundColor: `#${randomColor}` }} className="flex h-9 w-9 rounded-full">
           <div className="m-auto">
-            <span>{firstUserName[0]}</span>
-            <span>{lastUserName[0]}</span>
+            <span>{firstName[0]}</span>
+            <span>{lastName[0]}</span>
           </div>
         </div>
         <button
