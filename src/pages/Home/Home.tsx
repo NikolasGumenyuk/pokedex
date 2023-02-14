@@ -1,17 +1,9 @@
-import { useGetAllPokemonQuery } from 'services/pokemon/pokemon';
-import { useAppSelector } from 'store/hooks';
+import PokemonsList from 'components/PokemonsList/PokemonsList';
 
 const Home: React.FC = () => {
-  const { data } = useGetAllPokemonQuery();
-  const pokemons = useAppSelector((state) => state.pokemons);
-
-  console.log(pokemons);
-
-  console.log(data);
-
   return (
     <div>
-      <div>HomePage</div>
+      <PokemonsList />
     </div>
   );
 };

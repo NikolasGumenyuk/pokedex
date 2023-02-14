@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { setPokemons } from 'store/PokemonsSlice';
+import { setPokemons, setPokemonsCount } from 'store/PokemonsSlice';
 
 import { Pokemon, Pokemons } from './pokemon.types';
 
@@ -16,8 +16,9 @@ export const pokemonApi = createApi({
 
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
+        dispatch(setPokemonsCount(data.count));
         if (data) {
-          const promises = data.results.map((result) =>
+          const promises = data?.results.map((result) =>
             fetch(result.url).then((res) => res.json())
           );
           const responses = await Promise.all(promises);

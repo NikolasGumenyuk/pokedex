@@ -16,7 +16,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userReducer,
   setting: settingReducer,
-  pokemons: PokemonsSlice,
+  pokeBase: PokemonsSlice,
   [pokemonApi.reducerPath]: pokemonApi.reducer,
 });
 
