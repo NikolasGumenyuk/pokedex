@@ -1,14 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-
-import { PathName } from 'models/PathName';
+import PokemonsList from 'components/PokemonsList/PokemonsList';
 
 const Home: React.FC = () => {
-  const navigate = useNavigate();
-
   return (
     <div>
-      <div>HomePage</div>
-      <button onClick={() => navigate(PathName.login)}>go to login</button>
+      <PokemonsList />
     </div>
   );
 };
