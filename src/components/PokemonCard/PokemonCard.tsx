@@ -4,11 +4,15 @@ interface Props {
   pokemon: Pokemon;
 }
 
-const PokemonCard = ({ pokemon }: Props) => {
-  const { name, sprites } = pokemon;
+const PokemonCard = ({
+  pokemon: {
+    name,
+    sprites: { front_default: img },
+  },
+}: Props) => {
   return (
     <div className="m-10 rounded-lg bg-white p-10 shadow-md">
-      <img src={sprites.front_default} alt="pokemonImg" />
+      <img src={img} alt="pokemonImg" />
       <p className="flex justify-center">{name}</p>
     </div>
   );

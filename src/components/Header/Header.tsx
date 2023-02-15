@@ -7,6 +7,7 @@ const Header = () => {
   const dispatch = useAppDispatch();
   const { firstName, lastName } = useAppSelector((state) => state.user);
   const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+  const user = `${firstName[0]}${lastName[0]}`;
 
   const handleLogOut = () => {
     dispatch(setUser(initialState));
@@ -21,8 +22,7 @@ const Header = () => {
       <div className="flex items-center">
         <div style={{ backgroundColor: `#${randomColor}` }} className="flex h-9 w-9 rounded-full">
           <div className="m-auto">
-            <span>{firstName[0]}</span>
-            <span>{lastName[0]}</span>
+            <span>{user}</span>
           </div>
         </div>
         <button

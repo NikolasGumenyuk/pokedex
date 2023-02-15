@@ -3,15 +3,13 @@ export interface Pokemons {
   results: PokeDetails[];
 }
 
-export interface PokeDetails {
-  name: string;
-  url: string;
-}
+export type PokeDetails = Pick<Pokemon, 'name' | 'url'>;
 
 export interface Pokemon {
   id: number;
   name: string;
   sprites: Sprites;
+  url: string;
 }
 
 type Sprites = {

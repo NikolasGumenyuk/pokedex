@@ -16,8 +16,8 @@ export const pokemonApi = createApi({
 
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
-        dispatch(setPokemonsCount(data.count));
         if (data) {
+          dispatch(setPokemonsCount(data.count));
           const promises = data?.results.map((result) =>
             fetch(result.url).then((res) => res.json())
           );

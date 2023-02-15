@@ -3,8 +3,8 @@ import { useGetAllPokemonQuery } from 'services/pokemon/pokemon';
 import { useAppSelector } from 'store/hooks';
 
 const PokemonsList = () => {
-  const {} = useGetAllPokemonQuery();
   const pokemonsList = useAppSelector((state) => state.pokeBase.pokemons);
+  useGetAllPokemonQuery();
 
   return (
     <div className="flex flex-row flex-wrap justify-center">
