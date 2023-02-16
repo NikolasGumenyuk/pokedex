@@ -10,7 +10,7 @@ import { pokemonApi } from '../services/pokemon/pokemon';
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['setting'],
+  blacklist: ['setting', 'pokeBase'],
 };
 
 const rootReducer = combineReducers({
