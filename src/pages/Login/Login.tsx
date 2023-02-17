@@ -2,11 +2,15 @@ import React from 'react';
 
 import { useForm } from 'react-hook-form';
 
-import { LoginProps } from 'models/LoginProps';
 import { verifyUser } from 'services/users';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { setError, setLoading } from 'store/SettingSlice';
 import { setUser } from 'store/UserSlice';
+
+export interface LoginProps {
+  login: string;
+  password: string;
+}
 
 const Login = () => {
   const { register, handleSubmit } = useForm<LoginProps>();

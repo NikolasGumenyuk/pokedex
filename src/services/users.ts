@@ -1,4 +1,4 @@
-import { LoginProps } from 'models/LoginProps';
+import { LoginProps } from 'pages/Login/Login';
 import { UserState } from 'store/UserSlice';
 
 export const verifyUser = (data: LoginProps): Promise<UserState> => {
