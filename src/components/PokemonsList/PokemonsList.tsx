@@ -1,16 +1,16 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useIntersection } from 'react-use';
 
 import PokemonCard from 'components/PokemonCard/PokemonCard';
-import { useGetAllPokemonQuery, useLazyGetAllPokemonQuery } from 'services/pokemon/pokemon';
+import { useLazyGetAllPokemonQuery } from 'services/pokemon/pokemon';
 import { useAppSelector } from 'store/hooks';
 
 const PokemonsList = () => {
-  useGetAllPokemonQuery('');
-  const [getNexPokemons] = useLazyGetAllPokemonQuery();
+  const [getPokemons] = useLazyGetAllPokemonQuery();
   const pokemonsList = useAppSelector((state) => state.pokeBase.pokemons);
   const nextPokemons = useAppSelector((state) => state.pokeBase.nextPokemons);
+  const [scrollPosition, setScrollPosition] = useState<number>(0);
 
   const intersectionRef = useRef(null);
   const intersection = useIntersection(intersectionRef, {
@@ -20,23 +20,30 @@ const PokemonsList = () => {
   });
 
   useEffect(() => {
-    console.log(intersection && intersection.intersectionRatio < 1);
+    getPokemons('');
+    const interval = setInterval(() => {
+      setScrollPosition((prev) => prev + 1);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
     if (intersection && intersection.intersectionRatio < 1) {
       return;
     }
-
-    getNexPokemons(nextPokemons).unwrap();
-  }, [intersection]);
+    getPokemons(nextPokemons).unwrap();
+  }, [scrollPosition]);
 
   return (
     <div className="flex flex-row flex-wrap justify-center">
       {pokemonsList.map((pokemon) => {
         if (pokemonsList.indexOf(pokemon) === pokemonsList.length - 6) {
           return (
-            <>
-              <div key={0} ref={intersectionRef} className="w-1 bg-black"></div>
-              <PokemonCard key={pokemon.id} pokemon={pokemon} />
-            </>
+            <div key={pokemon.id}>
+              <div ref={intersectionRef}></div>
+              <PokemonCard pokemon={pokemon} />
+            </div>
           );
         }
         return <PokemonCard key={pokemon.id} pokemon={pokemon} />;
