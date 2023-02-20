@@ -1,7 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { Pokemon } from 'models/Pokemon';
-import { setNextPokemons, setPokemons, setPokemonsCount } from 'store/PokemonsSlice';
+import {
+  setNextPokemons,
+  setPokemons,
+  setPokemonsCount,
+  setPokemonsTypes,
+} from 'store/PokemonsSlice';
 
 import { Pokemons } from './pokemon.types';
 
@@ -28,8 +33,22 @@ export const pokemonApi = createApi({
         }
       },
     }),
+    getPokemonTypes: builder.query<Pokemons, string>({
+      query: () => 'type/',
+
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        const { data } = await queryFulfilled;
+        if (data) {
+          dispatch(setPokemonsTypes(data.results));
+        }
+      },
+    }),
   }),
 });
 
-export const { useGetPokemonByNameQuery, useGetAllPokemonQuery, useLazyGetAllPokemonQuery } =
-  pokemonApi;
+export const {
+  useGetPokemonByNameQuery,
+  useGetAllPokemonQuery,
+  useLazyGetAllPokemonQuery,
+  useLazyGetPokemonTypesQuery,
+} = pokemonApi;

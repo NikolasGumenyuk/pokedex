@@ -9,6 +9,7 @@ import { setError } from 'store/SettingSlice';
 import AppRouter from './AppRouter';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
+import backgroundImage from './assets/pokeball-icon.png';
 
 const App: React.FC = () => {
   const isLoading = useAppSelector((state) => state.setting.isLoading);
@@ -24,7 +25,10 @@ const App: React.FC = () => {
   }, [errorMessage]);
 
   return (
-    <div>
+    <div
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+      className="main bg-[#f6f8fc] bg-left-top bg-no-repeat"
+    >
       {isLoading && <Loading />}
       <AppRouter />
       {!!errorMessage && <ToastContainer />}
