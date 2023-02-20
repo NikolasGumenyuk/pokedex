@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { colors } from 'assets/typesColors';
+import { colors } from 'assets/mockColors';
 import { Pokemon } from 'models/Pokemon';
 import { ColorTypes } from 'services/pokemon/pokemon.types';
 

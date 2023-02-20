@@ -37,12 +37,14 @@ const Login = () => {
         <form className="mt-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-2">
             <input
+              defaultValue="admin"
               className="mt-2 block w-full rounded-md border bg-white px-4 py-2 text-purple-700 focus:border-purple-400 focus:outline-none focus:ring focus:ring-purple-300/40"
               {...register('login')}
             />
           </div>
           <div className="mb-2">
             <input
+              defaultValue="12345"
               type="password"
               className="mt-2 block w-full rounded-md border bg-white px-4 py-2 text-purple-700 focus:border-purple-400 focus:outline-none focus:ring focus:ring-purple-300/40"
               {...register('password', { required: true })}
