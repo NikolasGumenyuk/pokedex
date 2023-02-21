@@ -3,12 +3,14 @@ import { useEffect, useRef, useState } from 'react';
 import { useIntersection } from 'react-use';
 
 import PokemonCard from 'components/PokemonCard/PokemonCard';
-import { useLazyGetAllPokemonQuery } from 'services/pokemon/pokemon';
+import { useLazyGetAllPokemonQuery, useLazyGetPokemonTypesQuery } from 'services/pokemon/pokemon';
 import { useAppSelector } from 'store/hooks';
 
 const PokemonsList = () => {
   const [getPokemons] = useLazyGetAllPokemonQuery();
+  const [getPokemonsTypes] = useLazyGetPokemonTypesQuery();
   const pokemonsList = useAppSelector((state) => state.pokeBase.pokemons);
+
   const nextPokemons = useAppSelector((state) => state.pokeBase.nextPokemons);
   const [scrollPosition, setScrollPosition] = useState<number>(0);
 
@@ -21,6 +23,7 @@ const PokemonsList = () => {
 
   useEffect(() => {
     getPokemons('');
+    getPokemonsTypes('');
     const interval = setInterval(() => {
       setScrollPosition((prev) => prev + 1);
     }, 2000);

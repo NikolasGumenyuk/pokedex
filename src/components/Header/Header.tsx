@@ -14,7 +14,7 @@ const Header = () => {
   };
 
   return (
-    <nav className="sticky top-0 flex w-full items-center justify-between bg-white px-5 shadow-md">
+    <nav className="sticky top-0 z-10 flex w-full items-center justify-between bg-white px-5 shadow-md">
       <div className="flex items-center py-2">
         <img className="h-10 px-4" src={logo} alt="logo" />
         <p className="text-2xl">Pokedex</p>
