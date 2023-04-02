@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useIntersection } from 'react-use';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { ChevronUpIcon } from '@heroicons/react/24/solid';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import PokemonCard from 'components/PokemonCard/PokemonCard';
 import { useLazyGetAllPokemonQuery, useLazyGetPokemonTypesQuery } from 'services/pokemon/pokemon';
@@ -10,48 +12,53 @@ const PokemonsList = () => {
   const [getPokemons] = useLazyGetAllPokemonQuery();
   const [getPokemonsTypes] = useLazyGetPokemonTypesQuery();
   const pokemonsList = useAppSelector((state) => state.pokeBase.pokemons);
-
+  const pokemonsCount = useAppSelector((state) => state.pokeBase.count);
   const nextPokemons = useAppSelector((state) => state.pokeBase.nextPokemons);
-  const [scrollPosition, setScrollPosition] = useState<number>(0);
+  const [showTopBtn, setShowTopBtn] = useState(false);
 
-  const intersectionRef = useRef(null);
-  const intersection = useIntersection(intersectionRef, {
-    root: null,
-    rootMargin: '0px',
-    threshold: 1,
-  });
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     getPokemons('');
     getPokemonsTypes('');
-    const interval = setInterval(() => {
-      setScrollPosition((prev) => prev + 1);
-    }, 2000);
-
-    return () => clearInterval(interval);
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        setShowTopBtn(true);
+      } else {
+        setShowTopBtn(false);
+      }
+    });
   }, []);
 
-  useEffect(() => {
-    if (intersection && intersection.intersectionRatio < 1) {
-      return;
-    }
-    getPokemons(nextPokemons).unwrap();
-  }, [scrollPosition]);
-
   return (
-    <div className="flex flex-row flex-wrap justify-center">
+    <InfiniteScroll
+      className="flex flex-row flex-wrap justify-center"
+      dataLength={pokemonsList.length}
+      next={() => getPokemons(nextPokemons)}
+      hasMore={pokemonsCount !== pokemonsList.length + 1}
+      loader={<p>Loading ...</p>}
+    >
       {pokemonsList.map((pokemon) => {
         if (pokemonsList.indexOf(pokemon) === pokemonsList.length - 6) {
           return (
             <div key={pokemon.id}>
-              <div ref={intersectionRef}></div>
               <PokemonCard pokemon={pokemon} />
             </div>
           );
         }
         return <PokemonCard key={pokemon.id} pokemon={pokemon} />;
       })}
-    </div>
+      {showTopBtn && (
+        <button
+          className="fixed bottom-5 right-5 w-12 rounded-xl p-1 shadow-sm ring-1 ring-inset ring-gray-300  drop-shadow-2xl hover:bg-gray-50"
+          onClick={() => scrollToTop()}
+        >
+          <ChevronUpIcon />
+        </button>
+      )}
+    </InfiniteScroll>
   );
 };
 

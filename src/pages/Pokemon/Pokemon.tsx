@@ -1,7 +1,7 @@
-import React from 'react';
+import { PokemonInfo } from 'components/PokemonInfo';
 
 const Pokemon: React.FC = () => {
-  return <div>PokemonPage</div>;
+  return <PokemonInfo />;
 };
 
 export default Pokemon;
