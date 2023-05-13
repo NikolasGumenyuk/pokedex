@@ -1,10 +1,11 @@
+import { useParams } from 'react-router-dom';
+
 import { getGifUrl } from 'services/GetGifUrl/getGifUrl';
 import { useGetPokemonByNameQuery } from 'services/pokemon/pokemon';
-import { useAppSelector } from 'store/hooks';
 
 const PokemonInfo = () => {
-  const currentPokemon = useAppSelector((state) => state.pokeBase.currentPokemon);
-  const { data } = useGetPokemonByNameQuery(currentPokemon);
+  const { name } = useParams();
+  const { data } = useGetPokemonByNameQuery(name?.replace(':', '') as string);
   const gif = getGifUrl(data?.id as number);
 
   return (

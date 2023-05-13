@@ -20,16 +20,20 @@ const PokemonsList = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
 
+  const shoudShowTopBtn = () => {
+    if (window.scrollY > 400) {
+      setShowTopBtn(true);
+    } else {
+      setShowTopBtn(false);
+    }
+  };
+
   useEffect(() => {
     getPokemons('');
     getPokemonsTypes('');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 400) {
-        setShowTopBtn(true);
-      } else {
-        setShowTopBtn(false);
-      }
-    });
+    window.addEventListener('scroll', () => shoudShowTopBtn());
+
+    return () => window.removeEventListener('scroll', shoudShowTopBtn);
   }, []);
 
   return (
