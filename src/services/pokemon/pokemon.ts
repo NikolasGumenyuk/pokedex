@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { Pokemon } from 'models/Pokemon';
+import { Pokemon, PokemonEvolution } from 'models/Pokemon';
 import {
   setNextPokemons,
   setPokemons,
@@ -16,6 +16,9 @@ export const pokemonApi = createApi({
   endpoints: (builder) => ({
     getPokemonByName: builder.query<Pokemon, string>({
       query: (name) => `pokemon/${name}`,
+    }),
+    getPokemonSpeciesByName: builder.query<PokemonEvolution, number>({
+      query: (id: number) => `evolution-chain/${id}`,
     }),
     getAllPokemon: builder.query<Pokemons, string>({
       query: (next) => `pokemon/${next}`,
@@ -49,6 +52,8 @@ export const pokemonApi = createApi({
 export const {
   useGetPokemonByNameQuery,
   useGetAllPokemonQuery,
+  useGetPokemonSpeciesByNameQuery,
   useLazyGetAllPokemonQuery,
   useLazyGetPokemonTypesQuery,
+  useLazyGetPokemonSpeciesByNameQuery
 } = pokemonApi;

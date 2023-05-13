@@ -33,6 +33,10 @@
   background-position-y: -80px;
 }
 
+.image-pixeled {
+  image-rendering: pixelated;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
