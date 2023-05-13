@@ -9,6 +9,7 @@ export interface PokemonsState {
   nextPokemons: string;
   pokemonsTypes: ColorTypes;
   pokemons: Pokemon[];
+  currentPokemon: string;
 }
 
 const initialState: PokemonsState = {
@@ -16,6 +17,7 @@ const initialState: PokemonsState = {
   nextPokemons: '',
   pokemonsTypes: {},
   pokemons: [],
+  currentPokemon: '',
 };
 
 const pokemonsSlice = createSlice({
@@ -36,9 +38,17 @@ const pokemonsSlice = createSlice({
         return { ...accumulator, [key.name]: colors[index] };
       }, {});
     },
+    setCurrentPokemon: (state, action: PayloadAction<string>) => {
+      state.currentPokemon = action.payload;
+    },
   },
 });
 
-export const { setPokemons, setPokemonsCount, setNextPokemons, setPokemonsTypes } =
-  pokemonsSlice.actions;
+export const {
+  setPokemons,
+  setPokemonsCount,
+  setNextPokemons,
+  setPokemonsTypes,
+  setCurrentPokemon,
+} = pokemonsSlice.actions;
 export default pokemonsSlice.reducer;
