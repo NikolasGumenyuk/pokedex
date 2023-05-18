@@ -27,7 +27,7 @@ const App: React.FC = () => {
   return (
     <div
       style={{ backgroundImage: `url(${backgroundImage})` }}
-      className="main bg-[#f6f8fc] bg-left-top bg-no-repeat"
+      className="main h-[100vh] bg-[#f6f8fc] bg-left-top bg-no-repeat"
     >
       {isLoading && <Loading />}
       <AppRouter />

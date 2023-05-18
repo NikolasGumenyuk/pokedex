@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import MainLayout from 'layouts/MainLayout/MainLayout';
+import QuizPage from 'pages/QuizPage/QuizPage';
 import PrivateRoutes from 'utils/PrivateRoutes';
 import PublicRoutes from 'utils/PublicRoutes';
 
@@ -16,6 +17,7 @@ function AppRouter() {
         <Route path={PathName.home} element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path={PathName.pokemon} element={<Pokemon />} />
+          <Route path={PathName.quiz} element={<QuizPage />} />
         </Route>
       </Route>
       <Route element={<PublicRoutes />}>

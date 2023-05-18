@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { ChevronUpIcon } from '@heroicons/react/24/solid';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -47,7 +46,7 @@ const PokemonsList = () => {
       {pokemonsList.map((pokemon) => {
         if (pokemonsList.indexOf(pokemon) === pokemonsList.length - 6) {
           return (
-            <div key={pokemon.id}>
+            <div key={pokemon.name}>
               <PokemonCard pokemon={pokemon} />
             </div>
           );

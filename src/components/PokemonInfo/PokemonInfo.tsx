@@ -9,7 +9,7 @@ const PokemonInfo = () => {
   const gif = getGifUrl(data?.id as number);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex h-[100vh] justify-center">
       <div>
         <img src={gif} alt="" />
       </div>

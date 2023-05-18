@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { Pokemon } from 'models/Pokemon';
 import { getGifUrl } from 'services/GetGifUrl/getGifUrl';
@@ -23,7 +23,7 @@ const PokemonCard = ({
   const gif = getGifUrl(id);
 
   return (
-    <Link to={`/pokemon/:${name}`}>
+    <NavLink to={`/pokemon/:${name}`}>
       <div
         onMouseOver={() => setIsHover(true)}
         onMouseOut={() => setIsHover(false)}
@@ -48,7 +48,7 @@ const PokemonCard = ({
           ))}
         </span>
       </div>
-    </Link>
+    </NavLink>
   );
 };
 

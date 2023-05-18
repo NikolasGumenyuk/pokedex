@@ -17,6 +17,9 @@ export const pokemonApi = createApi({
     getPokemonByName: builder.query<Pokemon, string>({
       query: (name) => `pokemon/${name}`,
     }),
+    getPokemonById: builder.query<Pokemon, string>({
+      query: (name) => `pokemon/${name}`,
+    }),
     getAllPokemon: builder.query<Pokemons, string>({
       query: (next) => `pokemon/${next}`,
 
@@ -49,6 +52,8 @@ export const pokemonApi = createApi({
 export const {
   useGetPokemonByNameQuery,
   useGetAllPokemonQuery,
+  useLazyGetPokemonByNameQuery,
   useLazyGetAllPokemonQuery,
   useLazyGetPokemonTypesQuery,
+  useLazyGetPokemonByIdQuery,
 } = pokemonApi;
