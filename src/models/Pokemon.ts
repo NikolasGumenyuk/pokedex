@@ -35,14 +35,14 @@ export interface PokemonStats {
   stat: Description;
 }
 
-export const statsTypes: {[key: string]: string} = {
-  'hp': 'HP',
-  'attack': 'ATK',
-  'defense': 'DEF',
+export const statsTypes: { [key: string]: string } = {
+  hp: 'HP',
+  attack: 'ATK',
+  defense: 'DEF',
   'special-attack': 'SpA',
   'special-defense': 'SpD',
-  'speed' : 'SPD',
-}
+  speed: 'SPD',
+};
 
 export const statColors = ['#DF2140', '#FF994D', '#eecd3d', '#85DDFF', '#96da83', '#FB94A8'];
 
@@ -52,6 +52,9 @@ export interface PokemonEvolution {
 
 export interface Species {
   species: Description;
-  evolves_to: Species[]
+  evolves_to: Species[];
+}
 
+export interface PokemonSpecies {
+  evolution_chain: Description;
 }

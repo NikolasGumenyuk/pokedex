@@ -1,52 +1,59 @@
-import { Link, useParams } from "react-router-dom";
+import { useEffect } from 'react';
 
-import { Ability, Description, PockemonType, PokemonStats, Species, statColors, statsTypes } from "models/Pokemon";
-import { getGifUrl } from "services/GetGifUrl/getGifUrl";
-import { useGetPokemonByNameQuery, useGetPokemonSpeciesByNameQuery, useLazyGetPokemonSpeciesByNameQuery } from "services/pokemon/pokemon";
-import { typeColors } from "../../assets/mockColors";
-import { useEffect, useState } from "react";
+import { Link, useParams } from 'react-router-dom';
+
+import {
+  Ability,
+  Description,
+  PockemonType,
+  PokemonStats,
+  statColors,
+  statsTypes,
+} from 'models/Pokemon';
+import { getGifUrl } from 'services/GetGifUrl/getGifUrl';
+import {
+  useLazyGetPokemonByNameQuery,
+  useLazyGetPokemonSpeciesByNameQuery,
+} from 'services/pokemon/pokemon';
+import { useAppSelector } from 'store/hooks';
+
+import { typeColors } from '../../assets/mockColors';
 
 const PokemonInfo = () => {
-  const { name } = useParams();
-  const { data, isLoading } = useGetPokemonByNameQuery(name as string);
-  const { data: species } = useGetPokemonSpeciesByNameQuery(Math.ceil(+name! / 3));
-  const gif = getGifUrl(data?.id as number);
-  const [evolution, setEvolution] = useState<Description[]>([]);
+  const { name: id } = useParams();
+  const [getPokemonByName] = useLazyGetPokemonByNameQuery();
+  const [getPokemonEvolution] = useLazyGetPokemonSpeciesByNameQuery();
+  const data = useAppSelector((state) => state.pokemonInfoState.pokemonInfo);
+  const evolutions = useAppSelector((state) => state.pokemonInfoState.pokemonEvolution);
+
+  const gif = (pokemonId: number | undefined) => {
+    if (pokemonId === undefined) {
+      return;
+    }
+
+    return getGifUrl(pokemonId);
+  };
 
   const totalStats = (): number => {
     if (!data?.stats?.length) {
       return 0;
     }
 
-    return data?.stats?.map((a: PokemonStats) => a.base_stat)
-      .reduce((a: number, b: number) => a + b, 0)
-  }
-
-  const recursingSearch = (node: Species | undefined) => {
-    if (node?.species) {
-      setEvolution((prev) => [...prev, node?.species]);
-    }
-
-    if (node?.evolves_to?.length) {
-      recursingSearch(node.evolves_to[0])
-    }
-  }
+    return data?.stats
+      ?.map((a: PokemonStats) => a.base_stat)
+      .reduce((a: number, b: number) => a + b, 0);
+  };
 
   useEffect(() => {
-    if (species?.chain.species) {
-      setEvolution([species?.chain.species])
-    }
- 
-    recursingSearch(species?.chain?.evolves_to[0]);
-  }, []);
+    getPokemonByName(+id!);
+    getPokemonEvolution(+id!);
+  }, [id]);
 
   return (
     <>
-      {isLoading && <p>Loading...</p>}
-
-      <div className="flex flex-1 justify-between items-center gap-5 p-5 md:mx-16 xl:mx-32">
+      <div className="flex flex-1 items-center justify-between gap-5 p-5 md:mx-16 xl:mx-32">
         <div className="flex flex-1 items-center justify-center">
-          <img src={gif} alt={data?.name} className="image-pixeled" width="250px" />
+          <img src={gif(data?.id)} alt={data?.name} className="image-pixeled" width="250px" />
         </div>
 
         <div className="flex flex-1 flex-col items-center justify-center gap-5">
@@ -55,37 +62,43 @@ const PokemonInfo = () => {
 
           <div className="flex gap-2">
             {data?.types?.map((type: PockemonType, index: number) => {
-              return (<div key={index}
-                className="rounded-lg px-3 py-1 text-md font-semibold	capitalize text-gray-800"
-                style={{ backgroundColor: typeColors[type.type.name] }}>
-                {type.type.name}
-              </div>)
+              return (
+                <div
+                  key={index}
+                  className="rounded-lg px-3 py-1 font-semibold	capitalize text-gray-800"
+                  style={{ backgroundColor: typeColors[type.type.name] }}
+                >
+                  {type.type.name}
+                </div>
+              );
             })}
           </div>
 
           <div className="flex w-full items-center justify-center gap-2">
             <div className="w-full">
-              <h3 className="text-center text-md font-bold capitalize">Height</h3>
-              <div className="text-center w-full rounded-lg  bg-gray-200 py-2 px-4">
+              <h3 className="text-center font-bold capitalize">Height</h3>
+              <div className="w-full rounded-lg bg-gray-200  py-2 px-4 text-center">
                 {data?.height}m
               </div>
             </div>
 
             <div className="w-full">
-              <h3 className="text-center text-md font-bold capitalize">Weight</h3>
-              <div className="text-center w-full rounded-lg  bg-gray-200 py-2 px-4">
+              <h3 className="text-center font-bold capitalize">Weight</h3>
+              <div className="w-full rounded-lg bg-gray-200  py-2 px-4 text-center">
                 {data?.weight}kg
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap- w-full">
+          <div className="flex w-full flex-col gap-2">
             <h3 className="text-center text-xl font-bold capitalize">Abilities</h3>
             <div className=" flex w-full justify-between gap-2">
               {data?.abilities?.map((ability: Ability, index: number) => {
                 return (
-                  <div key={index}
-                    className="flex items-center justify-center text-center capitalize w-full rounded-lg  bg-gray-200 py-2 px-4">
+                  <div
+                    key={index}
+                    className="flex w-full items-center justify-center rounded-lg bg-gray-200 py-2  px-4 text-center capitalize"
+                  >
                     {ability.ability.name}
                   </div>
                 );
@@ -93,38 +106,41 @@ const PokemonInfo = () => {
             </div>
           </div>
 
-          <div className="flex gap-3 w-full justify-between ">
+          <div className="flex w-full justify-between gap-3 ">
             {data?.stats?.map((stat: PokemonStats, index: number) => {
-              return (<div className="flex flex-col gap-2 items-center justify-center" key={index}>
-                <label title={stat?.stat?.name}
+              return (
+                <div className="flex flex-col items-center justify-center gap-2" key={index}>
+                  <label
+                    title={stat?.stat?.name}
+                    style={{ backgroundColor: statColors[index] }}
+                    className="flex h-[30px] w-[30px] items-center justify-center rounded-full text-xs font-bold text-white"
+                  >
+                    {statsTypes[stat?.stat?.name]}
+                  </label>
+                  <span>{stat?.base_stat}</span>
+                </div>
+              );
+            })}
 
-                  style={{ backgroundColor: statColors[index] }}
-                  className="flex items-center font-bold justify-center rounded-full text-xs text-white h-[30px] w-[30px]">
-                  {statsTypes[stat?.stat?.name]}
-                </label>
-                <span>{stat?.base_stat}</span>
-              </div>)
-            })
-            }
-
-            <div className="flex flex-col gap-2 items-center justify-center">
-              <label className="bg-[#88AAEA] flex items-center font-bold justify-center rounded-full text-xs text-white h-[30px] w-[30px] align-middle">
+            <div className="flex flex-col items-center justify-center gap-2">
+              <label className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-[#88AAEA] align-middle text-xs font-bold text-white">
                 TOT
               </label>
               <span>{totalStats()}</span>
             </div>
           </div>
 
-          <div className="flex gap-2">
-            {evolution?.map((ev: Description, index: number) => {
+          <div className="flex items-baseline gap-2">
+            {evolutions?.map((ev: Description, index: number) => {
               const arr = ev.url.split('/');
-              const id = +arr[arr.length - 2];
-              const gifImage = getGifUrl(id)
+              const giffId = +arr[arr.length - 2];
+              const gifImage = getGifUrl(giffId);
+
               return (
-                <Link to={`./pokemon/${id}`}>
+                <Link to={`../pokemon/${giffId}`} key={index}>
                   <img src={gifImage} alt={data?.name} className="image-pixeled" width="200px" />
                 </Link>
-              )
+              );
             })}
           </div>
         </div>
