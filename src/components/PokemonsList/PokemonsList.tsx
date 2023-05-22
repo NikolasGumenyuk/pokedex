@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { ChevronUpIcon } from '@heroicons/react/24/solid';
 import InfiniteScroll from 'react-infinite-scroll-component';
 

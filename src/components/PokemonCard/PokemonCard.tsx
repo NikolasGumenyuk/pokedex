@@ -23,7 +23,7 @@ const PokemonCard = ({
   const gif = getGifUrl(id);
 
   return (
-    <Link to={`/pokemon/:${name}`}>
+    <Link to={`/pokemon/${id}`}>
       <div
         onMouseOver={() => setIsHover(true)}
         onMouseOut={() => setIsHover(false)}
