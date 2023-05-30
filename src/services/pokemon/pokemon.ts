@@ -16,9 +16,7 @@ export const pokemonApi = createApi({
   endpoints: (builder) => ({
     getPokemonByName: builder.query<Pokemon, string>({
       query: (name) => `pokemon/${name}`,
-    }),
-    getPokemonById: builder.query<Pokemon, string>({
-      query: (name) => `pokemon/${name}`,
+      keepUnusedDataFor: 0,
     }),
     getAllPokemon: builder.query<Pokemons, string>({
       query: (next) => `pokemon/${next}`,
@@ -38,7 +36,6 @@ export const pokemonApi = createApi({
     }),
     getPokemonTypes: builder.query<Pokemons, string>({
       query: () => 'type/',
-
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
         if (data) {
@@ -55,5 +52,4 @@ export const {
   useLazyGetPokemonByNameQuery,
   useLazyGetAllPokemonQuery,
   useLazyGetPokemonTypesQuery,
-  useLazyGetPokemonByIdQuery,
 } = pokemonApi;
